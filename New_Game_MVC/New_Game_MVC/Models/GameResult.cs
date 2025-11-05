@@ -8,12 +8,11 @@ namespace New_Game_MVC.Models
             [Key]
             public int Id { get; set; }
 
-            [Required]
-            [StringLength(10)]
+        
             public Choice PlayerChoice { get; set; }
 
-            [Required]
-            [StringLength(10)]
+           
+            
             public Choice ComputerChoice { get; set; }
 
             [Required]

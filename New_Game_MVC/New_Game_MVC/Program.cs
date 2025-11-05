@@ -1,7 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using New_Game_MVC;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AppDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("Game1")));
 
 var app = builder.Build();
 
@@ -23,5 +27,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
      pattern: "{controller=Game}/{action=Index}/{id?}");
+
 
 app.Run();
