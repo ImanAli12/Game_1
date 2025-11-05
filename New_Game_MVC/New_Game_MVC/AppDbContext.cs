@@ -14,4 +14,4 @@ namespace New_Game_MVC
             public DbSet<GameResult> GameResults { get; set; }
         }
     }
-}
+

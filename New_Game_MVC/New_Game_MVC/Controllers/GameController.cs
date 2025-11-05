@@ -41,8 +41,8 @@ namespace New_Game_MVC.Controllers
                 // حفظ النتيجة في قاعدة البيانات
                 var gameResult = new GameResult
                 {
-                    PlayerChoice = playerChoice.ToString(),
-                    ComputerChoice = computerChoice.ToString(),
+                    PlayerChoice = playerChoice,
+                    ComputerChoice = computerChoice,
                     Result = result.ToString()
                 };
 

@@ -25,4 +25,3 @@ app.MapControllerRoute(
      pattern: "{controller=Game}/{action=Index}/{id?}");
 
 app.Run();
-

@@ -10,11 +10,11 @@ namespace New_Game_MVC.Models
 
             [Required]
             [StringLength(10)]
-            public string PlayerChoice { get; set; }
+            public Choice PlayerChoice { get; set; }
 
             [Required]
             [StringLength(10)]
-            public string ComputerChoice { get; set; }
+            public Choice ComputerChoice { get; set; }
 
             [Required]
             [StringLength(10)]
