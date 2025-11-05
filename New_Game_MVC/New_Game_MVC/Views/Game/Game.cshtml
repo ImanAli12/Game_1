@@ -1,0 +1,125 @@
+﻿@model RockPaperScissorsMVC.Models.GameViewModel
+
+@{
+    ViewData["Title"] = "لعبة حجرة ورقة مقص";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2>🎮 لعبة حجرة ورقة مقص</h2>
+                </div>
+                <div class="card-body">
+                    <!-- نتيجة اللعبة -->
+                    @if (!string.IsNullOrEmpty(Model.GameResult))
+                    {
+                        <div class="alert alert-info text-center">
+                            <h4>@Model.GameResult</h4>
+                        </div>
+                    }
+
+                    <!-- الإحصائيات -->
+                    <div class="row text-center mb-4">
+                        <div class="col-md-4">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <h3>@Model.Wins</h3>
+                                    <p>فوز</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-danger text-white">
+                                <div class="card-body">
+                                    <h3>@Model.Losses</h3>
+                                    <p>خسارة</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-warning text-white">
+                                <div class="card-body">
+                                    <h3>@Model.Draws</h3>
+                                    <p>تعادل</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- أزرار الاختيار -->
+                    <form asp-action="Play" method="post" class="text-center">
+                        <div class="btn-group" role="group">
+                            <button type="submit" name="playerChoice" value="Rock" class="btn btn-outline-primary btn-lg">
+                                ✊ حجرة
+                            </button>
+                            <button type="submit" name="playerChoice" value="Paper" class="btn btn-outline-success btn-lg">
+                                ✋ ورقة
+                            </button>
+                            <button type="submit" name="playerChoice" value="Scissors" class="btn btn-outline-danger btn-lg">
+                                ✌️ مقص
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- سجل النتائج -->
+                    <div class="mt-5">
+                        <h4 class="text-center">آخر 10 نتائج</h4>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>اللاعب</th>
+                                        <th>الكمبيوتر</th>
+                                        <th>النتيجة</th>
+                                        <th>التاريخ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var game in Model.GameHistory)
+                                    {
+                                        <tr>
+                                            <td>@game.PlayerChoice</td>
+                                            <td>@game.ComputerChoice</td>
+                                            <td>
+                                                <span class="badge @GetResultBadgeClass(game.Result)">
+                                                    @GetResultText(game.Result)
+                                                </span>
+                                            </td>
+                                            <td>@game.GameDate.ToString("yyyy/MM/dd HH:mm")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetResultBadgeClass(string result)
+    {
+        return result switch
+        {
+            "Win" => "bg-success",
+            "Lose" => "bg-danger",
+            "Draw" => "bg-warning",
+            _ => "bg-secondary"
+        };
+    }
+
+    string GetResultText(string result)
+    {
+        return result switch
+        {
+            "Win" => "فوز",
+            "Lose" => "خسارة",
+            "Draw" => "تعادل",
+            _ => "غير معروف"
+        };
+    }
+}
